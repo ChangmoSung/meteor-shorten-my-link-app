@@ -13,9 +13,10 @@ function onRoute(req, res, next) {
   const link = Links.findOne({ token: req.params.token })
 
   if(link) {
-    
+    res.writeHead(307, { 'Location': link.url })
+    res.end()
   } else {
-
+    next()
   }
 }
 

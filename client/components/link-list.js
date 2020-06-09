@@ -3,13 +3,6 @@ import { withTracker } from 'meteor/react-meteor-data'
 import { Links } from '../../imports/collections/links'
 
 class LinkList extends Component {
-    constructor() {
-        super()
-        this.state = {
-
-        }
-    }
-
     renderRows = () => {
         return this.props.links.map(link => {
             const { url, clicks, token } = link
