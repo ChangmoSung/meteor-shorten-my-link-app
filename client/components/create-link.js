@@ -3,15 +3,23 @@ import React, { Component } from 'react';
 class CreateLink extends Component {
     constructor() {
         super()
-        this.statee = {
-
+        this.state = {
+            error: ''
         }
     }
 
     handleSubmit = e => {
         e.preventDefault()
 
-        Meteor.call('links.insert', this.refs.input.value)
+        Meteor.call('links.insert', this.refs.input.value, error => {
+            if(error) {
+                this.setState({
+                    error: 'Enter a valid URL'
+                })
+            } else {
+                this.refs.input.value = ''
+            }
+        })
     }
 
     render() { 
@@ -21,6 +29,8 @@ class CreateLink extends Component {
                     <label>Link to shorten</label>
                     <input ref='input' className='form-control'></input>
                 </div>
+
+                <div className='text-danger'>{this.state.error}</div>
 
                 <button className='btn btn-primary'>Shorten</button>
             </form>
